@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <title>
+        Inctf21 Pro Finals-Forensics Writeup
+    </title>
+    
+
+    
+         <link rel="icon" type="image/png" href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;my-blog&#x2F;assets&#x2F;images&#x2F;site_data&#x2F;avatar.png.jpg />
+    
+
+    
+        <title>Home</title>
+    
+
+    
+
+    
+
+    
+
+    
+    
+        <script src=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;js&#x2F;feather.min.js></script>
+    
+
+
+    
+        <link href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+
+    <div class="content">
+
+
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;>0xcyberpj</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;js&#x2F;themetoggle.js></script>
+        
+    </nav>
+</header>
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Inctf21 Pro Finals-Forensics Writeup</h1>
+            <div class="meta">
+                Posted on 2022-01-09
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h2 id="hello-amazing-hackers-it-s-me-pj">Hello Amazing Hackers! , It's me PJ</h2>
+<blockquote>
+<p>In this Blog We are going to have  a look at  some cool forensic challenges from inctf21 professional by bi0s
+,BTW The Winner of  INCTF21 Professionals is <strong>SSOD</strong> </p>
+</blockquote>
+<hr />
+<h2 id="1-xoxo-100pts">1. XOXO (100pts)</h2>
+<p><img src="https://user-images.githubusercontent.com/72292872/148693842-704f849b-e24b-48be-ac03-42b92a0bb227.png" alt="image" /></p>
+<p>Description: 
+<code>Did you know: if a^b=c then a^c=b</code></p>
+<p><strong>Given : xorred png file</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@kali~ file encrypted.png 
+encrypted.png: data 
+</span></code></pre>
+<ol>
+<li><strong>We actually Dont know the key , but we know the actual extension(png) which is come after the xor process.
+then xor the file with magic bytes of png , it will gives the Key to retrive the PNG</strong></li>
+</ol>
+<p><strong>Magic Bytes of PNG</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">xxd -l 10 chall.png                   
+00000000: 8950 4e47 0d0a 1a0a 0000    
+PNG......
+</span></code></pre>
+<p><img src="https://user-images.githubusercontent.com/72292872/148690219-508bbf5a-229b-4e6f-a013-983876ff7667.png" alt="image" /></p>
+<p>2.<strong>Xor the encrypted.png with the key</strong> <code>eAsy-x0r</code></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">&gt;&gt;&gt; from pwn import  *
+&gt;&gt;&gt; encrypted=open(&quot;encrypted.png&quot;,&quot;rb&quot;).read()
+&gt;&gt;&gt; answer=open(&quot;flag.png&quot;,&quot;wb&quot;)
+&gt;&gt;&gt; answer.write(xor(&quot;eAsy-x0r&quot;,encrypted))
+396068
+&gt;&gt;&gt; answer.close()
+</span></code></pre>
+<p><img src="https://user-images.githubusercontent.com/72292872/148690415-6962076d-53f9-47cf-b318-dc71dccf3da2.png" alt="image" /></p>
+<p><strong>Here We go ,FLAG :</strong><code>inctf{x0riNg_iS_fUn!!}</code> </p>
+<hr />
+<h2 id="2-look-deeper-200pts">2. Look Deeper (200pts)</h2>
+<p><img src="https://user-images.githubusercontent.com/72292872/148693814-889495f2-0716-4764-b182-2bbe68afd6c1.png" alt="image" /></p>
+<p><strong>Description</strong> : </p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">Ramesh sent me this PDF and told me that there is a weird sound deep in it,
+and asked me to find it. Can you help him find the what is hidden deep?
+</span></code></pre>
+<p><em>Given</em> : 
+<code>chall.pdf: PDF document, version 1.1</code></p>
+<ol>
+<li>Evince the pdf</li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/72292872/148691104-aea24cec-cfee-4dfe-bc6b-c4ce0c10bc5b.png" alt="image" /></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">echo &quot;ZTN5bl83a2RfdjBfc240el9nYzdfaHUzeXp0==&quot;|base64 -d                                       
+e3yn_7kd_v0_sn4z_gc7_hu3yz
+</span></code></pre>
+<blockquote>
+<p>I thought vigenere,
+yes <code>vigenere cipher</code> </p>
+</blockquote>
+<p><img src="https://user-images.githubusercontent.com/72292872/148691273-e2708241-4a4d-469c-8341-7e1b473b9828.png" alt="image" /></p>
+<p>well, it's not a flag but let's take it <code>w3ll_7ry_n0_fl4g_bu7_us3ful</code></p>
+<ol start="2">
+<li>Lets enum the pdf and extract any file</li>
+</ol>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">python2 /opt/git.peepdf/peepdf.py -i chall.pdf
+PPDF&gt; info
+Version 0:
+        Catalog: 1
+        Info: No
+        Objects (8): [1, 2, 3, 4, 5, 6, 7, 8]
+        Streams (2): [5, 8]
+                Encoded (1): [8]
+        Suspicious elements:
+                /Names (1): [1]
+PPDF&gt; stream 8 &gt; output
+</span></code></pre>
+<p><strong>wave time !</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">file output 
+output: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, stereo 44100 Hz
+</span></code></pre>
+<p><strong>From Description <code>deep?</code> exactly deepsound!</strong></p>
+<ol start="3">
+<li>open the wave in deepsound and input the decrypted cipher as a password</li>
+</ol>
+<blockquote>
+<ul>
+<li>open carrier file</li>
+<li>input password</li>
+<li>save the flag.zip</li>
+</ul>
+</blockquote>
+<p><img src="https://i.imgur.com/bvm9tNl.png" alt="image" /></p>
+<ul>
+<li>unzip flag.zip</li>
+</ul>
+<p><strong>correct the header of flag.png</strong></p>
+<p><strong>remove the line <code>......JFIF......</code> from flag.png using ghex</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">&gt;&gt;pj@kali~: xxd flag.png|head                           
+00000000: ffd8 ffe0 0010 4a46 4946 0001 0100 0001  ......JFIF......
+00000010: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
+
+        (after)
+        
+ &gt;&gt;pj@kali~: xxd flag.png|head
+00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
+00000010: 0000 03c0 0000 02bd 0806 0000 00eb 1d05  ................
+00000020: 3000 0036 837a 5458 7452 6177 2070 726f  0..6.zTXtRaw pro
+</span></code></pre>
+<p><img src="https://user-images.githubusercontent.com/72292872/148692558-235ce7a2-86db-439d-8d9f-2f452d2ffdda.png" alt="image" /></p>
+<h3 id="flag-inctf-kn0w1ng-4b0ut-pdf-s-15-u53ful">Flag : inctf{Kn0w1ng_4b0ut_PDF's_15_u53fuL}</h3>
+<hr />
+<h2 id="3-chunklet-100pts">3. Chunklet (100pts)</h2>
+<p><a href="https://0xcyberpj.me/my-blog/ctf/INCTF-21-Forensics/#9chunkies">reference-inctf-nationals Learning Round</a></p>
+<p><strong>given:</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">&gt;&gt;pj@kali~: file chall.png 
+chall.png: data
+</span></code></pre>
+<ol>
+<li>Correct the png header </li>
+</ol>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">&gt;&gt;pj@kali~: xxd -l 10 chall.png 
+00000000: 8950 6e47 0d0a 1a0a 0000                 .PnG.... (after)                                                                                              
+ &gt;&gt;pj@kali~: xxd -l 10 chall.png
+00000000: 8950 4e47 0d0a 1a0a 0000                 .PNG......
+</span></code></pre>
+<ol start="2">
+<li>
+<p>Replace <code>idhr</code> to <code>IHDR</code></p>
+</li>
+<li>
+<p>Replace <code>IADT</code> to <code>IDAT</code></p>
+</li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/72292872/148693353-0c71e455-ec30-4e98-bc1f-9fd45d2dddfb.png" alt="image" /></p>
+<ol start="4">
+<li>Replace The trailer from  <code>INED</code> to <code>IEND</code></li>
+</ol>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">&gt;&gt;pj@kali~: xxd chall.png |tail                
+00006de0: 0000 494e 4544 ae42 6082                 ..INED.B`.
+                             
+                             (AFTER)                           
+ &gt;&gt;pj@kali~: xxd chall.png |tail
+00006de0: 0000 4945 4e44 ae42 6082                 ..IEND.B`.
+</span></code></pre>
+<ol start="5">
+<li><code>feh chall.png</code></li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/72292872/148693591-7a6e6500-94a9-454b-adbb-aa41a12cbfe5.png" alt="image" /></p>
+<p><strong>Here we Go</strong></p>
+<h3 id="flag-inctf-th15-w4s-pr3ty-ea5y">Flag : inctf{tH15_w4S_Pr3Ty_EA5y}</h3>
+<hr />
+<h2 id="4-tracery">4.Tracery</h2>
+<blockquote>
+<p>Descrition: Do you know any communications standard which enables to exchange messages over a network.</p>
+</blockquote>
+<p><strong>Given:</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">file chall.pcap 
+chall.pcap: pcap capture file, microsecond ts (little-endian) - version 2.4 (Linux cooked v1, capture length 262144)
+
+</span></code></pre>
+<ul>
+<li>Wireshark</li>
+<li>Protocol Heirarchy -&gt; Data
+<img src="https://user-images.githubusercontent.com/72292872/149354607-69a4cd7f-0834-4616-b630-35d357a3ef41.png" alt="image" /></li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/72292872/149354739-b9ab02f3-b395-45c2-8b6f-410eb4ca1d34.png" alt="image" /></p>
+<p><strong>Count the lenght of The Dash , reflects someting to be useful</strong></p>
+<blockquote>
+<p>Copy the <code>Length??</code> , replace <code>Length</code> to <code>'\n'</code> (find &amp; replace) then save it, below py script can be used to retrive password</p>
+</blockquote>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">  pj@ctf-inctf-pro ~: cat pass|head                      
+??.................................................................................................
+??......................................................................................................
+??...........................................................................................
+??............................................................................................................
+??..............................................................................................
+??...................................................................................................................
+??.........................................
+??.......................................................................................
+??............................................
+                                                                                                                                      
+pj@ctf-inctf-pro ~: cat script.py   
+#code credits goes to pro (Aidenpearce)  
+f=open(&quot;pass&quot;)
+data=f.readlines()
+chars=[]
+for x in data:
+        chars.append(chr(len(x)))
+
+for y in range(0,255):
+        print(&quot;&quot;.join(chr(ord(x)+y) for x in chars))
+
+</span></code></pre><pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-pro ~: python3 script.py|grep in
+inctf{1_4m_n0t_th3_fl4g_g0t_1t??}
+
+</span></code></pre>
+<p>1.data -&gt; tcp -&gt; tcp-</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">file tcp_savedfile 
+tcp_savedfile: data
+</span></code></pre>
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;0xcyberpj title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;cyberpj1 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;0xcyberpj title=linkedin>
+            <i data-feather=linkedin></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2022 © P4ul | <a
+      href=""></a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <title>
+        Inctf21 Junior Finals-Forensics Writeup
+    </title>
+    
+
+    
+         <link rel="icon" type="image/png" href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;my-blog&#x2F;assets&#x2F;images&#x2F;site_data&#x2F;avatar.png.jpg />
+    
+
+    
+        <title>Home</title>
+    
+
+    
+
+    
+
+    
+
+    
+    
+        <script src=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;js&#x2F;feather.min.js></script>
+    
+
+
+    
+        <link href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+
+    <div class="content">
+
+
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;>0xcyberpj</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;js&#x2F;themetoggle.js></script>
+        
+    </nav>
+</header>
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Inctf21 Junior Finals-Forensics Writeup</h1>
+            <div class="meta">
+                Posted on 2022-01-11
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h2 id="hello-pros-this-is-pj">Hello Pros , This is PJ :)</h2>
+<blockquote>
+<h5 id="difficulty-level-easy-medium">Difficulty Level : Easy - Medium</h5>
+</blockquote>
+<h4 id="ctf-name-inctf21-junior-finals">CTF Name : <code>INCTF21 Junior Finals</code></h4>
+<h5 id="category-forensics">Category : Forensics</h5>
+<h2 id="1-ilovepdf">1.ILovePDF</h2>
+<blockquote>
+<p>Description: Kevin forgot his protected pdf password. Can you help him to retrieve the password?</p>
+</blockquote>
+<p><strong>Given:</strong> :</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;"> &gt;&gt; pj@ctf-inctf-jr ~: file chall.pdf 
+ 
+chall.pdf: PDF document, version 1.7
+</span></code></pre>
+<p><strong>I downloaded the pdf and confirmed that it was password protected!!!</strong>
+<strong>, but where can I go for some password ?:)</strong></p>
+<p><code>pdfcrack</code> </p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-jr ~: pdfcrack -w /usr/share/wordlists/rockyou.txt chall.pdf -q   
+ pwd= kittykat
+</span></code></pre>
+<p>view the pdf using the password <code>kittykat</code></p>
+<details> <summary><b>FLAG</b></summary>
+<pre><code class="language-bash">inctfj{PdFcR4ck_15_4maZ1ng}</code></pre>
+</details>
+<hr />
+<h2 id="2-litter">2. Litter</h2>
+<blockquote>
+<p>Description:  My friend has a serial habit of hiding things within him.
+He believes that &quot;If someone or something is corrupt, they’re broken morally or in some other way.&quot;</p>
+</blockquote>
+<p><strong>Given</strong>:</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-jr ~: file chall.jpeg 
+chall.jpeg: JPEG image data, Exif standard: [TIFF image data, big-endian, direntries=0], baseline, precision 8, 180x279, components 3
+</span></code></pre>
+<p><code>protip: try to unzip the file based on the challenge</code></p>
+<ol>
+<li>unzip </li>
+</ol>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;"> pj@ctf-inctf-jr ~: unzip chall.jpeg                                                                       1 ⨯
+Archive:  chall.jpeg
+warning [chall.jpeg]:  10481 extra bytes at beginning or within zipfile
+  (attempting to process anyway)
+  inflating: flag.png     
+</span></code></pre>
+<blockquote>
+<p>if we are able to hide the data using zip then we are also able to extract the file using unzip</p>
+</blockquote>
+<p><code>flag.png: data</code></p>
+<p><strong>flag.png seems corrupted</strong></p>
+<ul>
+<li><strong>add <code>50 4e 47</code> in the PNG Header using Ghex</strong></li>
+</ul>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">  pj@ctf-inctf-jr ~: xxd flag.png|head
+00000000: 8900 0000 0d0a 1a0a 0000 000d 4948 4452  ............IHDR
+00000010: 0000 0780 0000 0438 0806 0000 00e8 d3c1  .......8........
+
+                   (After)
+                   
+  pj@ctf-inctf-jr ~: xxd flag.png|head
+00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
+00000010: 0000 0780 0000 0438 0806 0000 00e8 d3c1  .......8........
+</span></code></pre>
+<p><strong>Here we Go</strong>
+<img src="https://user-images.githubusercontent.com/72292872/148811096-d77a4775-0351-4447-adbc-4dff7fb81163.png" alt="image" /></p>
+<details> <summary><b>FLAG</b></summary>
+<pre><code class="language-bash">inctfj{m4g1c4l_numb3r5_4r3_v3ry_1mpOrt4nt}</code></pre>
+</details>
+<hr />
+<h2 id="3-bit-steganography">3. Bit Steganography</h2>
+<blockquote>
+<p>Description: Just by (Z)ooming it is difficult to find (STEG) in an image!!</p>
+</blockquote>
+<p><strong>Description :) is enough lol <code>Z</code>  + <code>STEG</code>  = <code>ZSTEG</code></strong></p>
+<p><em>Given</em>:</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-jr ~: file chall.png          
+chall.png: PNG image data, 1920 x 1080, 8-bit/color RGB, non-interlaced
+
+</span></code></pre>
+<p><code>gem install zsteg</code></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-jr ~: zsteg chall.png 
+imagedata           .. file: Microsoft Works 1-3 (DOS) or 2 (Windows) document
+b1,rgb,lsb,xy       .. text: &quot;32:inctfj{zst3g_1s_4n_4w3s0m3_t00l}?&quot;   
+</span></code></pre>
+<p><strong>Yeah Awesome Tool</strong></p>
+<details> <summary><b>FLAG</b></summary>
+<pre><code class="language-bash">inctfj{zst3g_1s_4n_4w3s0m3_t00l}</code></pre>
+</details>
+<hr />
+<h2 id="4-xoxo">4.XOXO</h2>
+<p><strong>The same XOXO From INCTF Pro Finals</strong></p>
+<blockquote>
+<p>Description: <code>Did you know: if a^b=c then a^c=b</code></p>
+</blockquote>
+<p><strong>Given: xorred png file</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@kali~ file encrypted.png
+</span><span style="color:#383a42;">
+encrypted.png: data 
+</span></code></pre>
+<ol>
+<li><strong>We actually Don't know the key, but we know the actual extension(png) which is come after the xor process.
+then xor the file with magic bytes of png, it will give the Key to retrieve the PNG</strong></li>
+</ol>
+<p><strong>Magic Bytes of PNG</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">xxd -l 10 chall.png                                                                  
+00000000: 8950 4e47 0d0a 1a0a 0000                 .PNG......
+</span></code></pre>
+<p><img src="https://user-images.githubusercontent.com/72292872/148690219-508bbf5a-229b-4e6f-a013-983876ff7667.png" alt="image" /></p>
+<p>2.<strong>Xor the encrypted.png with the key</strong> <code>eAsy-x0r</code></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">&gt;&gt;&gt; from pwn import  *
+&gt;&gt;&gt; encrypted=open(&quot;encrypted.png&quot;,&quot;rb&quot;).read()
+&gt;&gt;&gt; answer=open(&quot;flag.png&quot;,&quot;wb&quot;)
+&gt;&gt;&gt; answer.write(xor(&quot;eAsy-x0r&quot;,encrypted))
+396068
+&gt;&gt;&gt; answer.close()
+</span></code></pre>
+<p><img src="https://user-images.githubusercontent.com/72292872/148690415-6962076d-53f9-47cf-b318-dc71dccf3da2.png" alt="image" /></p>
+<details> <summary><b>FLAG</b></summary>
+<pre><code class="language-bash">inctf{x0riNg_iS_fUn!!}</code></pre>
+</details>
+<hr />
+<h2 id="5-221">5.221</h2>
+<blockquote>
+<p>Description: Can you help me to crack this file?</p>
+</blockquote>
+<p><strong>Given</strong>:</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;"> pj@ctf-inctf-jr ~: file flag_5191093e-3b96-4269-8903-32b76b695485.zip 
+flag_5191093e-3b96-4269-8903-32b76b695485.zip: Zip archive data, at least v2.0 to extract
+</span></code></pre>
+<p><strong>Password Protected Zip!</strong></p>
+<ul>
+<li>fcrackzip</li>
+</ul>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">┌──(kali㉿kali)-[~/ctf/inctf-junior-finals/foren/221]
+└─$ fcrackzip  -D -p  /usr/share/wordlists/rockyou.txt -u ./flag_5191093e-3b96-4269-8903-32b76b695485.zip
+
+PASSWORD FOUND!!!!: pw == 221bbs
+
+</span></code></pre>
+<p><strong>Here We GO!</strong></p>
+<p><img src="https://user-images.githubusercontent.com/72292872/148813951-06832a16-1d3d-41cc-b3b1-c82ecb0e448b.png" alt="image" /></p>
+<details> <summary><b>FLAG</b></summary>
+<pre><code class="language-bash">inctf{okAy!H3r3's_yOuR_flaG!}</code></pre>
+</details>
+<hr />
+<h2 id="6-hide-crack">6. Hide &amp; Crack</h2>
+<blockquote>
+<p>Description: If you can't see what is hidden, then just crack it...</p>
+</blockquote>
+<p><strong>Given</strong>:</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">crack.jpeg: JPEG image data
+hide.jpeg:  JPEG image data
+</span></code></pre>
+<p><strong>Two jpeg images nice, crack and hide nothing but steghide and stegseek</strong></p>
+<ul>
+<li>Bruteforce the password for crack.jpeg using stegseek</li>
+</ul>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@kali ~: stegseek crack.jpeg /usr/share/wordlists/rockyou.txt
+StegSeek 0.6 - https://github.com/RickdeJager/StegSeek
+
+[i] Found passphrase: &quot;summer1&quot;
+[i] Original filename: &quot;password.txt&quot;.
+[i] Extracting to &quot;crack.jpeg.out&quot;.
+
+</span></code></pre>
+<p><code>H15i5Wh4Ty0Un33D</code> Can be Used to hide.jpeg </p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;"> &gt;&gt; pj@kali ~: steghide --extract -sf hide.jpeg -p tH15i5Wh4Ty0Un33D
+wrote extracted data to &quot;flag.txt&quot;.
+                                                                                                                
+ &gt;&gt; pj@kali ~: cat flag.txt 
+inctfj{4Nd_f1N4llY_y0U_g0T_1T!}
+ 
+</span></code></pre><details> <summary><b>FLAG</b></summary>
+<pre><code class="language-bash">inctfj{4Nd_f1N4llY_y0U_g0T_1T!}</code></pre>
+</details>
+<hr />
+<h2 id="7-implanted-sound">7. Implanted Sound</h2>
+<p><img src="https://user-images.githubusercontent.com/72292872/148815863-ee4957ed-85c8-40aa-857c-3e3028cdbdbe.png" alt="image" /></p>
+<p><strong>Given</strong>:</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">chall.jpeg: JPEG image
+</span></code></pre>
+<p><strong>Again jpeg, Do <code>unzip</code>, <code>foremost</code> or <code>binwalk</code></strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;"> pj@kali ~: unzip chall.jpeg 
+Archive:  chall.jpeg
+warning [chall.jpeg]:  96824 extra bytes at beginning or within zipfile
+  (attempting to process anyway)
+  inflating: Horror.wav     
+</span></code></pre>
+<p><strong>from Description you can assume it as morse (dash-dot) lol kinda dead-end</strong></p>
+<blockquote>
+<p>From Description, we know, that we have to reverse the audio </p>
+</blockquote>
+<ul>
+<li>Audacity -&gt; <code>CTRL + A</code> -&gt; filter -&gt; reverse- save -&gt; Then morse decoder</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/72292872/148818366-981a524b-15b4-4470-80f0-8bdda892f0d6.png" alt="image" /></p>
+<p><strong>Nice Twist</strong></p>
+<details> <summary><b>FLAG</b></summary>
+<pre><code class="language-bash">inctf{15n't_m0r53_c00l??}</code></pre>
+</details>
+<hr />
+<h2 id="8-panopto">8. Panopto</h2>
+<blockquote>
+<p>Description:     Alice threw the treasure Map in the Bin and now she is searching for the hidden treasure by traveling from region to region. Can you help her in finding the treasure?</p>
+</blockquote>
+<p><strong>Given</strong>:</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-jr ~: file chall.png                                                                   
+chall.png: PNG image data, 600 x 600, 8-bit/color RGBA, non-interlaced
+</span></code></pre>
+<p><strong>Given Challenge is a QR C0de Image</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;"> pj@ctf-inctf-jr ~: zbarimg chall.png 
+
+# Run the following script along with the Base32 Encoded Gold to get the flag :)
+# You can get the base32 gold from https://mega.nz/folder/dVJx3SKR#U_Dsjp10uLMspiJOXqyQjA
+import base64
+Base_32_Gold = &quot;&quot; # Enter the Base32 Gold within the double Quotes (&quot;&quot;)
+print(base64.b32decode(Base_32_Gold).decode(&quot;utf-8&quot;))
+</span></code></pre>
+<ol>
+<li>Download Those Three images from the <a href="https://mega.nz/folder/dVJx3SKR#U_Dsjp10uLMspiJOXqyQjA">mega_link</a></li>
+</ol>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;"> pj@ctf-inctf-jr ~: ls -lah G*
+-rw-r--r-- 1 kali kali  13K Jan  9 17:11 &#39;Gold 1.png&#39;
+-rw-r--r-- 1 kali kali 132K Jan  9 17:11 &#39;Gold 2.png&#39;
+-rw-r--r-- 1 kali kali  71K Jan  9 17:11 &#39;Gold 3.png&#39;
+</span></code></pre>
+<p><code>Gold 2.png</code> - Size was Greater than the rest images</p>
+<blockquote>
+<p><code>unzip</code> | <code>foremost</code> | <code>binwalk</code></p>
+</blockquote>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">  pj@ctf-inctf-jr ~: unzip Gold 2.png 
+Archive:  Gold 2.png
+ inflating: Gold.txt 
+</span></code></pre><pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-jr ~: cat Gold.txt|grep  N|base32 -d
+</span><span style="color:#383a42;">
+inctfj{zb4r1ng_4nd_b453_32_d3c0d1ng_g1v3s_th3_fl4g}
+</span></code></pre><details> <summary><b>FLAG</b></summary>
+<pre><code class="language-bash">inctfj{zb4r1ng_4nd_b453_32_d3c0d1ng_g1v3s_th3_fl4g}</code></pre>
+</details>
+<hr />
+<h2 id="9-i-lost-my-monkey">9. I LOST MY MONKEY</h2>
+<blockquote>
+<p>Description :
+My monkey has been missing since last night. You can find the image of my monkey in the pcap. Can you help me find the monkey?</p>
+</blockquote>
+<p><strong>Given:</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-jr ~: file helpme_ecc6d701-b3b4-4d25-824b-be4a9d4fb5ae.pcapng 
+helpme_ecc6d701-b3b4-4d25-824b-be4a9d4fb5ae.pcapng: pcapng capture file - version 1.0
+</span></code></pre>
+<p><strong>:) Easy</strong></p>
+<p><code>tcpflow -r</code></p>
+<blockquote>
+<p>TCPflow is a free, open-source, powerful command-line based tool for analyzing network traffic on Unix-like systems such as Linux. It captures data received or transferred over TCP connections, and stores it in a file for later analysis, in a useful format that allows for protocol analysis and debugging</p>
+</blockquote>
+<blockquote>
+<p>Also you can do this in Wireshark-&gt;export object -&gt; http-&gt; save-flag.png </p>
+</blockquote>
+<p><img src="https://i.imgur.com/7BD7Jx2.png" alt="image" /></p>
+<blockquote>
+<p>| Nice Monkey :)</p>
+</blockquote>
+<details> <summary>FLAG</summary>
+<pre><code class="language-bash">inctfj{y0u_found_mY_mOnk3y}</code></pre>
+</details>
+<hr />
+<h2 id="10-chunking-up">10. Chunking UP</h2>
+<blockquote>
+<p>Description :
+We have got a file which might provide us with important evidence but looks like it's messed up. Can you help us?</p>
+</blockquote>
+<p><strong>Given:</strong></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">pj@ctf-inctf-jr ~: file chall.png          
+chall.png: data
+</span></code></pre>
+<p><strong>:( How many Chunk Editing Challs!</strong></p>
+<blockquote>
+<p>shoot ghex</p>
+</blockquote>
+<ul>
+<li>Replace <code>A9</code> into <code>89</code></li>
+</ul>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">00000000: a950 4e47 0d                             .PNG.
+(after)
+00000000: 8950 4e47 0d                             .PNG
+</span></code></pre>
+<ul>
+<li>
+<p>Replace <code>IdhR</code> into <code>IHDR</code></p>
+</li>
+<li>
+<p>Replace <code>iadt</code> into <code>IDAT</code></p>
+</li>
+<li>
+<p>Replace The TRAILER From <code>ieNd</code> into <code>IEND</code></p>
+</li>
+</ul>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">  pj@ctf-inctf-jr ~: xxd  chall.png |tail
+  
+00008490: 0000 0000 6965 4e64 ae42 6082            ....ieNd.B`.
+                      (after)                                                                                          
+  pj@ctf-inctf-jr ~: xxd  chall.png |tail
+  
+00008490: 0000 0000 4945 4e44 ae42 6082            ....IEND.B`.
+</span></code></pre>
+<p><strong>Thats all  , FLAG Is <code>READY</code></strong></p>
+<p><img src="https://user-images.githubusercontent.com/72292872/149345720-122f7c16-44b7-43e3-9fa1-e6059150966b.png" alt="image" /></p>
+<details> <summary color="red">FLAG</summary>
+<pre><code class="language-bash">inctfj{n0W_YoU_kN0w_4b0Ut_pNgCHUnkS?}</code></pre>
+</details>
+<br>
+<hr />
+<details>
+  <summary><b>MEMES</b></summary>
+<p><img src="https://pics.ballmemes.com/slpt-how-to-print-a-password-protected-pdf-file-71254484.png">  
+<br>
+<img src="https://user-images.githubusercontent.com/72292872/149348422-7f745caf-4c36-4c8c-b2af-593f9184b031.png">  
+<br></p>
+<p><img src="https://user-images.githubusercontent.com/72292872/149348604-76ac6b7e-52d3-40c5-b2da-914d4f05c5c8.png">  
+<br></p>
+</details>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;0xcyberpj title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;cyberpj1 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;0xcyberpj title=linkedin>
+            <i data-feather=linkedin></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2022 © P4ul | <a
+      href=""></a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+
+</body>
+
+
+
+</html>

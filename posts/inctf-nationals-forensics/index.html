@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <title>
+        Inctf21 Nationals LearingRound
+    </title>
+    
+
+    
+         <link rel="icon" type="image/png" href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;my-blog&#x2F;assets&#x2F;images&#x2F;site_data&#x2F;avatar.png.jpg />
+    
+
+    
+        <title>Home</title>
+    
+
+    
+
+    
+
+    
+
+    
+    
+        <script src=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;js&#x2F;feather.min.js></script>
+    
+
+
+    
+        <link href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;css&#x2F;dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+
+    <div class="content">
+
+
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;>0xcyberpj</a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>All posts</a>
+        
+            <a href=&#x2F;about>About</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https:&#x2F;&#x2F;0xcyberpj.me&#x2F;blog&#x2F;js&#x2F;themetoggle.js></script>
+        
+    </nav>
+</header>
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Inctf21 Nationals LearingRound</h1>
+            <div class="meta">
+                Posted on 2021-11-06
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h1 id="1-s3cr3t">1.s3cr3t</h1>
+<blockquote>
+<p>Description: I heard weird sounds coming from an audio file.. beep boop boop boop beep... Was it the aliens?
+Format: inctf{}</p>
+</blockquote>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">┌──(root💀kali)-[/home/…/ctf/inCTF21LR/foren/s3cr3t]
+└─# file challenge_3538bf75-1269-40cd-9054-db14cb94c3d9.wav 
+challenge_3538bf75-1269-40cd-9054-db14cb94c3d9.wav: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 8 bit, mono 8000 Hz
+</span></code></pre>
+<p><a href="https://morsecode.world/international/decoder/audio-decoder-adaptive.html">sounds Like Morse code!</a>
+<img src="https://user-images.githubusercontent.com/72292872/140641481-30e3e65c-e265-4f4d-958c-72727fc843d0.png" alt="image" /></p>
+<h3 id="flag-inctf-m0rs3c0d3i5c001">FLag : <code>inctf{M0RS3C0D3I5C001}</code></h3>
+<h1 id="2-deeper">2.Deeper</h1>
+<blockquote>
+<p>Description: Dive deep into the image......
+Submit flag as given: inctf{THIS_IS_THE_FLAG}</p>
+</blockquote>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/deeper]
+└─#</span><span style="color:#383a42;"> file sky_diving.jpg 
+</span><span style="color:#e45649;">sky_diving.jpg:</span><span style="color:#383a42;"> JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16
+</span></code></pre>
+<p><strong>Basics Is First, unzip or foremost or binwalk</strong></p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/deeper]
+└─#</span><span style="color:#383a42;"> unzip sky_diving.jpg                                    
+</span><span style="color:#e45649;">Archive:</span><span style="color:#383a42;">  sky_diving.jpg
+</span><span style="color:#e45649;">warning </span><span style="color:#a626a4;">[</span><span style="color:#383a42;">sky_diving.jpg</span><span style="color:#a626a4;">]</span><span style="color:#383a42;">:  9806 extra bytes at beginning or within a zip file
+  (</span><span style="color:#e45649;">attempting</span><span style="color:#383a42;"> to process anyway)
+  </span><span style="color:#e45649;">inflating:</span><span style="color:#383a42;"> marshmello.mp3         
+</span></code></pre><pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/deeper]
+└─#</span><span style="color:#383a42;"> foremost sky_diving.jpg 
+</span><span style="color:#e45649;">Processing:</span><span style="color:#383a42;"> sky_diving.jpg
+</span><span style="color:#50a14f;">|foundat=marshmello.mp3UT
+</span></code></pre>
+<p><strong>Just Listen till The end</strong> <code>marshmello.mp3: WebM</code></p>
+<p>In the Last 30 seconds
+<a href="https://morsecode.world/international/decoder/audio-decoder-adaptive.html">Its Morse Again</a></p>
+<p><img src="https://user-images.githubusercontent.com/72292872/140641768-d889d646-2694-4132-915a-abae115246c6.png" alt="image" /></p>
+<h3 id="flag-inctf-h34r-w1th-y0ur-3y35">Flag : <code>inctf{H34R_W1TH_Y0UR_3Y35}</code></h3>
+<h1 id="3-con-the-cat">3. Con-The-Cat</h1>
+<blockquote>
+<p>Description: This image seems too big for a normal png! What do you think can be hidden in this? , Flag Format:
+inctfj{...}</p>
+</blockquote>
+<p><strong>Given A PNG</strong>`
+file sus.png 
+sus.png: PNG image data,  8-bit colormap, non-interlaced</p>
+<p><strong>As Usual Basic Stuffs! First</strong>
+Foremost -&gt; result -&gt; png(flag)</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">──(root💀kali)-[/home/…/ctf/inCTF21LR/foren/con-the-cat]
+└─# foremost sus.png
+</span></code></pre>
+<p>check the output directory </p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/inCTF21LR/foren/con-the-cat/output]
+└─#</span><span style="color:#383a42;"> tree                                                                               
+</span><span style="color:#0184bc;">.
+</span><span style="color:#e45649;">├──</span><span style="color:#383a42;"> audit.txt
+</span><span style="color:#e45649;">├──</span><span style="color:#383a42;"> jpg
+</span><span style="color:#e45649;">│</span><span style="color:#383a42;">   ├── 00000015.jpg
+</span><span style="color:#e45649;">│</span><span style="color:#383a42;">   ├── 00000044.jpg
+</span><span style="color:#e45649;">│</span><span style="color:#383a42;">   ├── 00000145.jpg
+</span><span style="color:#e45649;">│</span><span style="color:#383a42;">   └── 00000175.jpg
+</span><span style="color:#e45649;">└──</span><span style="color:#383a42;"> png
+    </span><span style="color:#e45649;">└──</span><span style="color:#383a42;"> 00000000.png
+
+</span></code></pre>
+<p><strong>Memes and Flag</strong>
+<img src="https://user-images.githubusercontent.com/72292872/140642210-1f842ca6-c3ad-4a0d-bf0c-4ff0b27b4f67.png" alt="image" /></p>
+<h3 id="flag-inctfj-you-c4nt-s33-m3">Flag : <code>inctfj{yOu_c4nt_s33_m3!!}</code></h3>
+<h1 id="4-back-to-san-andreas">4.Back to San Andreas</h1>
+<blockquote>
+<p>Description:
+hey did you know cJ waS parT of thE Grove street?</p>
+</blockquote>
+<p>1 Given : </p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#383a42;">┌──(root💀kali)-[lol]
+└─# file chall.jpeg                                                                     
+chall.jpeg: JPEG image data, baseline, precision 8, 1600x900, components 3
+</span></code></pre>
+<p><strong>As Basics Stuffs its jpeg so jsteg,steghide is Good to try</strong></p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/lol]
+└─#</span><span style="color:#383a42;"> jsteg reveal chall.jpeg                                                              
+</span><span style="color:#e45649;">https://ibb.co/3s8d1bv
+
+</span></code></pre>
+<p>https://ibb.co/3s8d1bv --&gt; Just Go and get the flag!</p>
+<p><img src="https://user-images.githubusercontent.com/72292872/140642364-b13dfe3f-345b-4e6c-8c82-669b4893dead.png" alt="image" /></p>
+<h3 id="flag-inctfj-gr0ve-5treet-f0r-l1fe">Flag : <code>inctfj{gr0ve_5treet_f0r_l1fe}</code></h3>
+<h1 id="5-angry-steeve">5. Angry Steeve</h1>
+<blockquote>
+<p>Description:
+Jimmy found out about an embarrassing picture of his dad Steve. He believes that there is a text inside that file somewhere. But he is too scared to open and tamper with it as his father is a very short-tempered man. Help Jimmy out!
+Flag format - inctfj{flag_here}</p>
+</blockquote>
+<p>1 Given A JPG</p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/angry-steeve]
+└─#</span><span style="color:#383a42;"> file steve.jpg                                                                   130 ⨯ 1 ⚙
+</span><span style="color:#e45649;">steve.jpg:</span><span style="color:#383a42;"> JPEG image data, JFIF standard 1.01, resolution (DPI)</span><span style="color:#e45649;">,</span><span style="color:#383a42;"> density 72x72, segment length 16, baseline, precision 8, 5472x3648, components 3
+</span></code></pre>
+<p><strong>Strings !!!Basics Alert</strong></p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/angry-steeve]
+└─#</span><span style="color:#383a42;"> strings steve.jpg</span><span style="color:#a626a4;">|</span><span style="color:#e45649;">grep</span><span style="color:#383a42;"> inctf                                                           1 ⚙
+</span><span style="color:#e45649;">inctfj{string5_m4keth_fl4gs</span><span style="color:#383a42;">}
+</span></code></pre><h3 id="flag-inctfj-string5-m4keth-fl4gs">FLag : <code>inctfj{string5_m4keth_fl4gs}</code></h3>
+<h2 id="6-follow-up">6. Follow up</h2>
+<blockquote>
+<p>Description:
+We got a clue from one of our investigators that an interesting secret was transferred in our network. Help us find out the secret.</p>
+</blockquote>
+<p><code>Flag Format: shaktictf{}</code></p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/follow-up]
+└─#</span><span style="color:#383a42;"> file network1_c85c3303-28a4-4aaf-901e-77377f4f06f7.pcapng                              1 ⚙
+</span><span style="color:#e45649;">network1_c85c3303-28a4-4aaf-901e-77377f4f06f7.pcapng:</span><span style="color:#383a42;"> pcapng capture file - version 1.0
+</span></code></pre>
+<p>(no need to use any shark :))</p>
+<p>1.strings --&gt; 
+<code>https://pastebin.com/4NXGaVbA</code></p>
+<p><img src="https://user-images.githubusercontent.com/72292872/140642679-ef351af6-2f24-4686-9dff-b96c27d49440.png" alt="image" /></p>
+<h3 id="flag-shaktictf-th15-w4s-ea5y">Flag: <code>shaktictf{Th15_w4s_eA5Y!!}</code></h3>
+<h1 id="7-snow-snow">7. Snow Snow</h1>
+<blockquote>
+<p>Description:
+The secret you are looking for is hidden in the plain sight.</p>
+</blockquote>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/snow-snow]
+└─#</span><span style="color:#383a42;"> file chall.txt                                                                  
+</span><span style="color:#e45649;">chall.txt:</span><span style="color:#383a42;"> ASCII text
+</span></code></pre>
+<p><strong>So it's Snow ? what ?</strong>
+&gt;stegsnow is a program for concealing messages in text files by appending tabs and spaces on the end of lines, and for extracting messages from files containing </p>
+<p><code>apt install stegsnow</code></p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/snow-snow]
+└─#</span><span style="color:#383a42;"> stegsnow</span><span style="color:#e45649;"> -C</span><span style="color:#383a42;"> chall.txt</span><span style="color:#a626a4;">|</span><span style="color:#e45649;">rot13</span><span style="color:#383a42;">                                                            1 ⚙
+</span><span style="color:#e45649;">agvb{rC1O35k4X3_nO3B0_d5_X00g</span><span style="color:#383a42;">}  
+</span></code></pre>
+<p><strong>shift Caeser cipher</strong></p>
+<p><img src="https://user-images.githubusercontent.com/72292872/140642836-860cc6e2-60c9-4c11-871a-088601da30b6.png" alt="image" /></p>
+<h3 id="flag-flag-wh1t35p4c3-st3g0-i5-c00l">Flag : <code>flag{wH1T35p4C3_sT3G0_i5_C00l}</code></h3>
+<h1 id="8-nameless-picture">8. Nameless Picture</h1>
+<blockquote>
+<p>Description:
+Who created this image? Can you catch him?</p>
+</blockquote>
+<p><strong>ExifTool can be used to get some basic information about the picture</strong>
+<img src="https://user-images.githubusercontent.com/72292872/140643026-27e7ce47-a06d-410f-90a7-b1ce9adc34a3.png" alt="image" /></p>
+<h3 id="flag-inctfj-d4v1d-t00k-th1s-pic">Flag : <code>inctfj{D4v1d_T00k_Th1s_pIc}</code></h3>
+<h1 id="9-chunkies">9.Chunkies</h1>
+<blockquote>
+<p>Description:
+We could only retrieve only this file from the machine but looks like this is corrupted. Can you recover the file?</p>
+</blockquote>
+<p>1.Given </p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/chunkies]
+└─#</span><span style="color:#383a42;"> file flag.png                                                                          1 ⚙
+</span><span style="color:#e45649;">flag.png:</span><span style="color:#383a42;"> data
+
+</span></code></pre>
+<p><strong>Lets start correcting the header,chunks,..</strong></p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">xxd</span><span style="color:#383a42;"> flag.png</span><span style="color:#a626a4;">|</span><span style="color:#e45649;">head                                                              
+00000000:</span><span style="color:#383a42;"> 504e 470d 0a1a 0a00 0000 0d49 4844 5200  PNG........IHDR.
+</span></code></pre>
+<p><strong>1. Before The <code>50, 89</code>  is missing</strong></p>
+<p><strong>2.replace <code>IADT</code> into <code>IDAT</code></strong></p>
+<p><img src="https://user-images.githubusercontent.com/72292872/140643157-9ee8d8ed-454a-422c-a2fb-69dd72cf6435.png" alt="image" /></p>
+<p><strong>3.change Trailer of png <code>INED</code> to <code>IEND</code></strong></p>
+<p>Before:</p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/chunkies]
+└─#</span><span style="color:#383a42;">     xxd flag.png</span><span style="color:#a626a4;">|</span><span style="color:#e45649;">tail 
+..........................................
+0000b120:</span><span style="color:#383a42;"> f000 0000 0049 4e45 44ae 4260 82         .....INED.B`</span><span style="color:#0184bc;">.
+</span></code></pre>
+<p>After:</p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">0000b120:</span><span style="color:#383a42;"> f000 0000 0049 454e 44ae 4260 82         .....IEND.B.
+</span></code></pre>
+<p><strong>After That with the help of pngcheck</strong></p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="color:#e45649;">┌──</span><span style="color:#383a42;">(root💀kali)</span><span style="color:#e45649;">-[/home/…/ctf/inCTF21LR/foren/chunkies]
+└─#</span><span style="color:#383a42;"> pngcheck</span><span style="color:#e45649;"> -v</span><span style="color:#383a42;"> flag.png                                                            
+</span><span style="color:#e45649;">File:</span><span style="color:#383a42;"> flag.png (45357 bytes)
+  </span><span style="color:#e45649;">chunk</span><span style="color:#383a42;"> IHDR at offset 0x0000c, length 13
+    </span><span style="color:#e45649;">512</span><span style="color:#383a42;"> x 308 image, 32-bit RGB+alpha, non-interlaced
+  </span><span style="color:#e45649;">CRC</span><span style="color:#383a42;"> error in chunk IHDR (computed 5a7b8bdc, expected 5a9b8bdc)
+</span><span style="color:#e45649;">ERRORS</span><span style="color:#383a42;"> DETECTED in flag.png 
+</span></code></pre>
+<p><img src="https://user-images.githubusercontent.com/72292872/140643410-632307e0-c923-41cc-aad5-937f88c8061f.png" alt="image" /></p>
+<p>Change <code>9b</code> into <code>7b</code> That's all!</p>
+<p><img src="https://user-images.githubusercontent.com/72292872/140643435-90261fbe-d557-49de-bc3f-5375c4a7cfec.png" alt="image" /></p>
+<h3 id="flag-shaktictf-y4yyyyy-y0u-g0t-1t">Flag : <code>shaktictf{Y4YyyyY_y0u_g0t_1T}</code></h3>
+<h1 id="10-c0rrupted">10. C0rrupted</h1>
+<p>1 Given: Challenge.png</p>
+<p><code>challenge.png: data</code>
+sed laip !!!
+have to fix it!</p>
+
+        </section>
+
+        
+            <div class="post-tags">
+                <nav class="nav tags">
+                    <ul class="tags">
+                        
+                            <li><a href=https://0xcyberpj.me/blog/tags/inctf2021/>Inctf2021</a></li>
+                        
+                            <li><a href=https://0xcyberpj.me/blog/tags/learninground/>LearningRound</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;0xcyberpj title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;cyberpj1 title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;0xcyberpj title=linkedin>
+            <i data-feather=linkedin></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2022 © P4ul | <a
+      href=""></a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+
+</body>
+
+
+
+</html>
