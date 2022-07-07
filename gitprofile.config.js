@@ -17,7 +17,7 @@ const config = {
     dribbble: '',
     behance: '',
     medium: 'cyberpj',
-    dev: '0xcyberpj',
+    dev: '',
     website: 'https://0xcyberpj.github.io',
     phone: '',
     email: 'cyberpj404@gmail.com',
@@ -31,6 +31,9 @@ const config = {
     'CTF',
     'Git',
     'Docker',
+    'Forensics',
+    'Python',
+    'CPP',
   ],
   experiences: [
     {
@@ -64,7 +67,7 @@ const config = {
   blog: {
     source: 'medium', // medium | dev
     username: 'cyberpj',
-    limit: 10, // How many posts to display. Max is 10.
+    limit: 5, // How many posts to display. Max is 10.
   },
   googleAnalytics: {
     // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
@@ -79,7 +82,7 @@ const config = {
 
     // Should use the prefers-color-scheme media-query,
     // using user system preferences, instead of the hardcoded defaultTheme
-    respectPrefersColorScheme: true,
+    respectPrefersColorScheme: false,
 
     // Available themes. To remove any theme, exclude from here.
     themes: [

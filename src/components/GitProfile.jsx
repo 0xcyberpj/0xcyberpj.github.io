@@ -209,7 +209,7 @@ const GitProfile = ({ config }) => {
                   >
                     <div>
                       <p className="font-mono text-sm">
-                       
+                        >> {' '}
                         <span className="text-primary">0xcyberpj</span>
                       </p>
                     </div>
