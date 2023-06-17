@@ -1,0 +1,4 @@
+key length : 10
+key format : {.......}
+:) FIND ME , THEN GET THE FLAG 
+HAPPY HACKING 
